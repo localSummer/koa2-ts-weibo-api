@@ -5,7 +5,7 @@ import * as Types from '../types';
 export type TSuccess = (data?: any, status?: Types.EResponseStatus) => void;
 export type TError = (
   code: Types.EErrorResponseCode,
-  msg?: Types.EErrorResponseMsg,
+  msg?: string,
   data?: any,
   status?: Types.EResponseStatus
 ) => void;

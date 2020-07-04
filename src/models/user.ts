@@ -3,18 +3,28 @@ import sequelize from './connection';
 
 interface UserAttributes {
   id: number;
-  name: string;
-  preferredName: string | null;
+  userName: string;
+  password: string;
+  nickName: string;
+  gender: number;
+  picture: string;
+  city: string;
+  isDelete: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
-type UserCreationAttributes = Optional<UserAttributes, 'id'>;
+type UserCreationAttributes = Optional<UserAttributes, 'id' | 'picture' | 'city' | 'isDelete'>;
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;
-  public name!: string;
-  public preferredName!: string | null;
+  public userName!: string;
+  public password!: string;
+  public nickName!: string;
+  public gender!: number;
+  public picture!: string;
+  public city!: string;
+  public isDelete!: boolean;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -28,15 +38,40 @@ User.init(
       allowNull: false,
       primaryKey: true
     },
-    name: {
+    userName: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: ''
+      unique: true,
+      comment: '用户名，唯一'
     },
-    preferredName: {
+    password: {
       type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: null
+      allowNull: false,
+      comment: '密码'
+    },
+    nickName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      comment: '昵称'
+    },
+    gender: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      defaultValue: 3,
+      comment: '性别（1 男，2 女，3 保密）'
+    },
+    picture: {
+      type: DataTypes.STRING,
+      comment: '头像，存放图片地址'
+    },
+    city: {
+      type: DataTypes.STRING,
+      comment: '城市'
+    },
+    isDelete: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      comment: '标识该用户是否删除'
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE

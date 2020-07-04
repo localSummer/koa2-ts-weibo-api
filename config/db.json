@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Anicl0ud",
-    "database": "todo_koa2_api",
+    "database": "weibo_koa2_api",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
@@ -18,7 +18,7 @@
   "test": {
     "username": "root",
     "password": "Anicl0ud",
-    "database": "todo_koa2_api",
+    "database": "weibo_koa2_api",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
@@ -34,7 +34,7 @@
   "production": {
     "username": "root",
     "password": "Anicl0ud",
-    "database": "todo_koa2_api",
+    "database": "weibo_koa2_api",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",

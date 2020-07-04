@@ -1,12 +1,8 @@
 import Router from 'koa-router';
-import Validator from '../middlewares/validator';
-import UserController from '../controllers/userController';
-import upload from '../middlewares/upload';
+import userRouter from './user';
 
 const router = new Router();
 
-router.get('/', Validator.validLogin, UserController.login);
-
-router.post('/upload', upload().single('file'), UserController.uploadAvator);
+router.use('/api/user', userRouter.routes(), userRouter.allowedMethods());
 
 export default router;
