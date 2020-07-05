@@ -23,6 +23,28 @@ class UserController {
     }
   }
 
+  static async login(ctx: Koa.Context) {
+    const { userName, password } = ctx.request.body;
+    const user = await UserService.getUserInfo(userName, Helper.encrypt(password));
+    if (!user) {
+      return ctx.error(
+        Types.EErrorResponseCode.USER_NOT_EXISTED_CODE,
+        Types.EErrorResponseMsg.USER_NOT_EXISTED
+      );
+    }
+
+    ctx.success({
+      token: Helper.getToken({
+        id: user.id,
+        userName: user.userName,
+        nickName: user.nickName,
+        picture: user.picture,
+        city: user.city,
+        gender: user.gender
+      })
+    });
+  }
+
   static async register(ctx: Koa.Context) {
     const { userName, password, gender = 3 } = ctx.request.body;
 

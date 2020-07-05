@@ -13,6 +13,7 @@ import jwtAuth from './middlewares/jwt';
 import { systemLogger, defaultLogger, accessLogger } from './utils/log4';
 import index from './routes';
 import Helper from './utils/helper';
+import * as Types from './types';
 
 const app = new Koa();
 
@@ -33,10 +34,19 @@ app.use(koaStatic(path.resolve(__dirname, '../public')));
 // 用户上传资源访问
 app.use(koaStatic(path.resolve(__dirname, '../uploads')));
 
-// logger 控制台请求输出
+// logger 控制台请求输出 和 错误捕获
 app.use(async (ctx, next) => {
   const start = Date.now();
-  await next();
+  await next().catch((err) => {
+    if (err.status === 401) {
+      ctx.error(
+        Types.EErrorResponseCode.UN_AUTHORIZED_CODE,
+        Types.EErrorResponseMsg.UN_AUTHORIZED,
+        null,
+        Types.EResponseStatus.UN_AUTHORIZED
+      );
+    }
+  });
   const ms = Date.now() - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
   accessLogger.info(Helper.logFormat(ctx, ms));

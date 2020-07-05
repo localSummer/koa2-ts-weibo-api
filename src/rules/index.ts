@@ -8,6 +8,14 @@ const user = SchemaModel({
     .maxLength(100, '用户名最多100个字符')
 });
 
+const password = SchemaModel({
+  password: StringType()
+    .isRequired('请填写密码')
+    .minLength(3, '密码最少3个字符')
+    .maxLength(16, '密码最多16个字符'),
+  newPassword: StringType()
+});
+
 const regist = SchemaModel({
   password: StringType()
     .isRequired('请填写密码')
@@ -35,5 +43,6 @@ const regist = SchemaModel({
 
 export default {
   userModel: user,
-  registModel: SchemaModel.combine(user, regist)
+  registModel: SchemaModel.combine(user, regist),
+  loginModel: SchemaModel.combine(user, password)
 };

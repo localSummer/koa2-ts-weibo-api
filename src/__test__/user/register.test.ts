@@ -1,5 +1,5 @@
 import Helper from '../../utils/helper';
-import axios from '../../utils/http';
+import axios from '../../utils/axios';
 
 const user = {
   userName: `test_${Date.now()}`,
