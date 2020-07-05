@@ -37,13 +37,20 @@ app.use(koaStatic(path.resolve(__dirname, '../uploads')));
 // logger 控制台请求输出 和 错误捕获
 app.use(async (ctx, next) => {
   const start = Date.now();
-  await next().catch((err) => {
-    if (err.status === 401) {
+  await next().catch((error) => {
+    if (error.status === 401) {
       ctx.error(
         Types.EErrorResponseCode.UN_AUTHORIZED_CODE,
         Types.EErrorResponseMsg.UN_AUTHORIZED,
         null,
         Types.EResponseStatus.UN_AUTHORIZED
+      );
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.SYSTEM_ERROR_CODE,
+        error.message,
+        error.stack,
+        Types.EResponseStatus.SYSTEM_ERROR
       );
     }
   });

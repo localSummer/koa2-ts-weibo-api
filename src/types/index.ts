@@ -31,7 +31,8 @@ export enum EResponseFlag {
 export enum EResponseStatus {
   SUCCESS = 200,
   ERROR = 500,
-  UN_AUTHORIZED = 401
+  UN_AUTHORIZED = 401,
+  SYSTEM_ERROR = 500
 }
 
 export enum EErrorResponseMsg {
@@ -40,6 +41,7 @@ export enum EErrorResponseMsg {
   REGISTER_USER_NOT_EXIST = '用户名不存在',
   UN_AUTHORIZED = '无权访问',
   USER_NOT_EXISTED = '用户不存在',
+  SYSTEM_ERROR_CODE = '系统异常',
   DEFAULT_ERROR = ''
 }
 
@@ -50,6 +52,7 @@ export enum EErrorResponseCode {
   REGISTER_USER_NOT_EXIST_CODE = 10003,
   UN_AUTHORIZED_CODE = 10004,
   USER_NOT_EXISTED_CODE = 10005,
+  SYSTEM_ERROR_CODE = 10006,
 
   DATABASE_ERROR_CODE = 20000
 }

@@ -14,7 +14,7 @@ router.post('/login', Validator.validator(rules.loginModel), UserController.logi
 
 router.post('/register', Validator.validator(rules.registModel), UserController.register);
 
-router.post('/delete', UserController.delete);
+router.post('/delete', Validator.validator(rules.userModel), UserController.delete);
 
 router.post('/upload', upload().single('file'), UserController.uploadAvator);
 

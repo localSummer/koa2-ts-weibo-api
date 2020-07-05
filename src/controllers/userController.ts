@@ -79,11 +79,22 @@ class UserController {
 
   static async delete(ctx: Koa.Context) {
     const { userName } = ctx.state.user;
+    if (userName !== ctx.request.body.userName) {
+      return ctx.error(
+        Types.EErrorResponseCode.UN_AUTHORIZED_CODE,
+        Types.EErrorResponseMsg.UN_AUTHORIZED
+      );
+    }
     try {
       await UserService.deleteUser(userName);
       ctx.success();
     } catch (error) {
-      ctx.error(Types.EErrorResponseCode.DATABASE_ERROR_CODE, error.message, error.stack);
+      ctx.error(
+        Types.EErrorResponseCode.DATABASE_ERROR_CODE,
+        error.message,
+        error.stack,
+        Types.EResponseStatus.SYSTEM_ERROR
+      );
     }
   }
 }
