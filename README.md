@@ -12,9 +12,9 @@ koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gu
 
 > 注意：所有自定义中间件在 `next` 调用时，需使用右侧格式 `await next()`，否则在 `controller` 中操作数据库会引发 `ctx.body` 数据丢失问题
 
-> 本项目对应 `dev` `test` `prd` 三套环境，分别对应于 `config/db.json` 中三套数据库配置，
+> 本项目对应 `dev` `test` `prd` 三套环境，分别对应于 `config/db.json` 中三套数据库配置
 
-### 数据库操作
+### 数据库操作（命令行操作 或 npm scripts）
 1. `npx sequelize db:create --charset "utf8mb4" --collate "utf8mb4_general_ci"` 同步数据库
 2. `npx sequelize db:migrate` 同步表
 
@@ -42,13 +42,20 @@ koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gu
   "jest": "cross-env NODE_ENV=test jest --passWithNoTests --updateSnapshot",
   "jest:watch": "cross-env NODE_ENV=test jest --coverage --watch",
   "jest:prod": "cross-env NODE_ENV=test npm run test -- --no-cache",
-  "db-create-dev": "sequelize db:create --env=development",
+  "db-create-dev": "sequelize db:create --env=development --charset=utf8mb4 --collate=utf8mb4_general_ci",
   "db-migrate-dev": "sequelize db:migrate --env=development",
-  "db-create-test": "sequelize db:create --env=test",
+  "db-create-test": "sequelize db:create --env=test --charset=utf8mb4 --collate=utf8mb4_general_ci",
   "db-migrate-test": "sequelize db:migrate --env=test",
-  "db-create-prd": "sequelize db:create --env=production",
+  "db-create-prd": "sequelize db:create --env=production --charset=utf8mb4 --collate=utf8mb4_general_ci",
   "db-migrate-prd": "sequelize db:migrate --env=production"
 },
+```
+
+#### 坑点
+```javascript
+// 需要为 Router 添加类型声明，否则 router.post('/delete', UserController.delete); 该接口会报出 ctx 类型不匹配问题
+import { DefaultState, Context } from 'koa';
+const router = new Router<DefaultState, Context>();
 ```
 
 #### 目录结构

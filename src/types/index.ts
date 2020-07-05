@@ -36,6 +36,7 @@ export enum EResponseStatus {
 export enum EErrorResponseMsg {
   INVALID_PARAMS = '参数不正确',
   REGISTER_USER_EXISTED = '注册用户已存在',
+  REGISTER_USER_NOT_EXIST = '用户名不存在',
   DEFAULT_ERROR = ''
 }
 
@@ -43,6 +44,7 @@ export enum EErrorResponseCode {
   DEFAULT_ERROR_CODE = 10000,
   INVALID_PARAMS_CODE = 10001,
   REGISTER_USER_EXISTED_CODE = 10002,
+  REGISTER_USER_NOT_EXIST_CODE = 10003,
 
   DATABASE_ERROR_CODE = 20000
 }

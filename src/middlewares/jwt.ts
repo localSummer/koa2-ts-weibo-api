@@ -11,7 +11,7 @@ const jwtAuth = koaJwt({
     }
   }
 }).unless({
-  path: ['/', '/api/user/login', '/api/user/register']
+  path: ['/', '/api/user/login', '/api/user/register', '/api/user/isExist']
 });
 
 export default jwtAuth;

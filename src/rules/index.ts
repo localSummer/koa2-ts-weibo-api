@@ -1,17 +1,14 @@
 import { SchemaModel, StringType, NumberType } from 'schema-typed';
 
-const loginModel = SchemaModel({
-  username: StringType().isRequired('用户名不能为空'),
-  email: StringType().isEmail('请输入正确的邮箱'),
-  age: NumberType('年龄应该是一个数字').range(18, 30, '年龄应该在 18 到 30 岁之间')
-});
-
-const registModel = SchemaModel({
+const user = SchemaModel({
   userName: StringType()
     .isRequired('请填写用户名')
     .pattern(/^[a-zA-Z][a-zA-Z0-9_]+$/, '字母开头，字母数字下划线')
     .minLength(2, '用户名最少2个字符')
-    .maxLength(100, '用户名最多100个字符'),
+    .maxLength(100, '用户名最多100个字符')
+});
+
+const regist = SchemaModel({
   password: StringType()
     .isRequired('请填写密码')
     .minLength(3, '密码最少3个字符')
@@ -37,6 +34,6 @@ const registModel = SchemaModel({
 });
 
 export default {
-  loginModel,
-  registModel
+  userModel: user,
+  registModel: SchemaModel.combine(user, regist)
 };
