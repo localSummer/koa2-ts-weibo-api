@@ -4,10 +4,17 @@ import * as Types from '../types';
 import Helper from '../utils/helper';
 
 class UserController {
-  static async uploadAvator(ctx: Koa.Context) {
-    ctx.logger.warn(ctx.file);
-    ctx.logger.warn(ctx.request.body);
-    ctx.success('上传成功');
+  static async getUserInfo(ctx: Koa.Context) {
+    const { userName } = ctx.state.user;
+    const userInfo = await UserService.getUserInfo(userName);
+    if (userInfo) {
+      ctx.success(userInfo);
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.USER_NOT_EXISTED_CODE,
+        Types.EErrorResponseMsg.USER_NOT_EXISTED
+      );
+    }
   }
 
   static async isExist(ctx: Koa.Context) {

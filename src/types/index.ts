@@ -42,6 +42,7 @@ export enum EErrorResponseMsg {
   UN_AUTHORIZED = '无权访问',
   USER_NOT_EXISTED = '用户不存在',
   SYSTEM_ERROR_CODE = '系统异常',
+  PICTURE_UPDATE_ERROR = '头像更新失败',
   DEFAULT_ERROR = ''
 }
 
@@ -53,6 +54,7 @@ export enum EErrorResponseCode {
   UN_AUTHORIZED_CODE = 10004,
   USER_NOT_EXISTED_CODE = 10005,
   SYSTEM_ERROR_CODE = 10006,
+  PICTURE_UPDATE_ERROR_CODE = 10007,
 
   DATABASE_ERROR_CODE = 20000
 }

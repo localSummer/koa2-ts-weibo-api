@@ -1,7 +1,7 @@
 import Koa from 'koa';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { PASSWORD_SECRET, PRIVATE_KEY, JWT_EXPIRED } from '../share';
+import { PASSWORD_SECRET, PRIVATE_KEY, JWT_EXPIRED, UPLOAD_DIR } from '../share';
 import { IUserInfo } from '../types';
 
 class Helper {
@@ -36,6 +36,10 @@ class Helper {
 
   static decodeToken(token: string): IUserInfo {
     return jwt.decode(token) as IUserInfo;
+  }
+
+  static formatPicturePath(path: string) {
+    return path.replace(new RegExp(`${UPLOAD_DIR}`), '');
   }
 }
 

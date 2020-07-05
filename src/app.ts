@@ -14,6 +14,7 @@ import { systemLogger, defaultLogger, accessLogger } from './utils/log4';
 import index from './routes';
 import Helper from './utils/helper';
 import * as Types from './types';
+import { UPLOAD_DIR } from './share';
 
 const app = new Koa();
 
@@ -32,7 +33,7 @@ app.use(koaLogger());
 // 公共资源访问
 app.use(koaStatic(path.resolve(__dirname, '../public')));
 // 用户上传资源访问
-app.use(koaStatic(path.resolve(__dirname, '../uploads')));
+app.use(koaStatic(path.resolve(__dirname, `../${UPLOAD_DIR}`)));
 
 // logger 控制台请求输出 和 错误捕获
 app.use(async (ctx, next) => {
