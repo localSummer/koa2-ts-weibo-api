@@ -18,7 +18,7 @@
   "test": {
     "username": "root",
     "password": "Anicl0ud",
-    "database": "weibo_koa2_api",
+    "database": "weibo_koa2_api_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",

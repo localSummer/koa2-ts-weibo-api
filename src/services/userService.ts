@@ -40,18 +40,27 @@ class UserService {
     });
   }
 
-  static async deleteUser(userName: string) {
-    const result = await Models.User.update(
-      {
-        isDelete: true
-      },
-      {
+  static async deleteUser(userName: string, isRealDel = false) {
+    if (isRealDel) {
+      const result = await Models.User.destroy({
         where: {
           userName
         }
-      }
-    );
-    return result[0] === 1;
+      });
+      return result === 1;
+    } else {
+      const result = await Models.User.update(
+        {
+          isDelete: true
+        },
+        {
+          where: {
+            userName
+          }
+        }
+      );
+      return result[0] === 1;
+    }
   }
 }
 

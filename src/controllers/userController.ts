@@ -22,12 +22,21 @@ class UserController {
     }
 
     try {
-      await UserService.createUser({
+      const user = await UserService.createUser({
         userName,
         password: Helper.encrypt(password),
         gender
       });
-      ctx.success();
+      ctx.success({
+        token: Helper.getToken({
+          id: user.id,
+          userName: user.userName,
+          nickName: user.nickName,
+          picture: user.picture,
+          city: user.city,
+          gender: user.gender
+        })
+      });
     } catch (error) {
       ctx.error(Types.EErrorResponseCode.DATABASE_ERROR_CODE, error.message, error.stack);
     }

@@ -12,6 +12,8 @@ koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gu
 
 > 注意：所有自定义中间件在 `next` 调用时，需使用右侧格式 `await next()`，否则在 `controller` 中操作数据库会引发 `ctx.body` 数据丢失问题
 
+> 本项目对应 `dev` `test` `prd` 三套环境，分别对应于 `config/db.json` 中三套数据库配置，
+
 ### 数据库操作
 1. `npx sequelize db:create --charset "utf8mb4" --collate "utf8mb4_general_ci"` 同步数据库
 2. `npx sequelize db:migrate` 同步表
@@ -31,14 +33,21 @@ koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gu
   "compile": "tsc --project tsconfig.json -w",
   "dev": "cross-env NODE_ENV=development nodemon bin/www",
   "build": "tsc --project tsconfig.json",
+  "test": "cross-env NODE_ENV=test nodemon bin/www",
   "prd": "cross-env NODE_ENV=production pm2 start bin/www",
   "clear": "rm -r dist",
   "eslint": "eslint src --ext .ts",
   "gulp-compile": "gulp dev",
   "gulp-build": "gulp build",
-  "test": "jest --passWithNoTests --updateSnapshot",
-  "test:watch": "jest --coverage --watch",
-  "test:prod": "npm run eslint && npm run test -- --no-cache"
+  "jest": "cross-env NODE_ENV=test jest --passWithNoTests --updateSnapshot",
+  "jest:watch": "cross-env NODE_ENV=test jest --coverage --watch",
+  "jest:prod": "cross-env NODE_ENV=test npm run test -- --no-cache",
+  "db-create-dev": "sequelize db:create --env=development",
+  "db-migrate-dev": "sequelize db:migrate --env=development",
+  "db-create-test": "sequelize db:create --env=test",
+  "db-migrate-test": "sequelize db:migrate --env=test",
+  "db-create-prd": "sequelize db:create --env=production",
+  "db-migrate-prd": "sequelize db:migrate --env=production"
 },
 ```
 

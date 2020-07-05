@@ -1,10 +1,19 @@
 import log4js from 'log4js';
 import { TSuccess, TError } from '../middlewares/response';
 
+export interface IUserInfo {
+  id: number;
+  userName: string;
+  nickName: string;
+  picture: string;
+  city: string | null;
+  gender: number;
+}
+
 // 为 Context 类型扩展自定义属性
 declare module 'koa' {
   interface DefaultState {
-    stateProperty: boolean;
+    user: IUserInfo;
   }
 
   interface DefaultContext {

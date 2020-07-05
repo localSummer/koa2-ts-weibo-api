@@ -1,6 +1,8 @@
 import Koa from 'koa';
 import crypto from 'crypto';
-import { PASSWORD_SECRET } from '../share';
+import jwt from 'jsonwebtoken';
+import { PASSWORD_SECRET, PRIVATE_KEY, JWT_EXPIRED } from '../share';
+import { IUserInfo } from '../types';
 
 class Helper {
   static logFormat(ctx: Koa.Context, ms: number) {
@@ -24,6 +26,16 @@ class Helper {
       .createHmac('md5', PASSWORD_SECRET)
       .update(password)
       .digest('hex');
+  }
+
+  static getToken(data: IUserInfo) {
+    return jwt.sign(data, PRIVATE_KEY, {
+      expiresIn: JWT_EXPIRED
+    });
+  }
+
+  static decodeToken(token: string): IUserInfo {
+    return jwt.decode(token) as IUserInfo;
   }
 }
 

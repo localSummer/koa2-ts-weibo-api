@@ -9,6 +9,7 @@ import path from 'path';
 
 import koaResponse from './middlewares/response';
 import logger from './middlewares/logger';
+import jwtAuth from './middlewares/jwt';
 import { systemLogger, defaultLogger, accessLogger } from './utils/log4';
 import index from './routes';
 import Helper from './utils/helper';
@@ -44,6 +45,7 @@ app.use(async (ctx, next) => {
 // 自定义控制台输出日志
 app.use(logger(defaultLogger));
 app.use(koaResponse);
+app.use(jwtAuth);
 
 // 路由
 app.use(index.routes());
