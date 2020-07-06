@@ -104,6 +104,57 @@ class UserController {
       );
     }
   }
+
+  static async updateUser(ctx: Koa.Context) {
+    const { userName } = ctx.state.user;
+    const { nickName, picture, city } = ctx.request.body;
+    const userInfo = await UserService.getUserInfo(userName);
+    if (!userInfo) {
+      return ctx.error(
+        Types.EErrorResponseCode.USER_NOT_EXISTED_CODE,
+        Types.EErrorResponseMsg.USER_NOT_EXISTED
+      );
+    }
+    const result = await UserService.updateUser(userName, {
+      nickName,
+      picture,
+      city
+    });
+
+    if (result) {
+      ctx.success();
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.UPDATA_USER_ERROR_CODE,
+        Types.EErrorResponseMsg.UPDATA_USER_ERROR
+      );
+    }
+  }
+
+  static async resetPassword(ctx: Koa.Context) {
+    const { userName } = ctx.state.user;
+    const { oldPassword, password } = ctx.request.body;
+    const userInfo = await UserService.getUserInfo(userName, Helper.encrypt(oldPassword));
+    if (!userInfo) {
+      return ctx.error(
+        Types.EErrorResponseCode.USER_NOT_EXISTED_CODE,
+        Types.EErrorResponseMsg.USER_NOT_EXISTED
+      );
+    }
+    const result = await UserService.resetPassword(
+      userName,
+      Helper.encrypt(oldPassword),
+      Helper.encrypt(password)
+    );
+    if (result) {
+      ctx.success();
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.PASSWORD_RESET_ERROR_CODE,
+        Types.EErrorResponseMsg.PASSWORD_RESET_ERROR
+      );
+    }
+  }
 }
 
 export default UserController;

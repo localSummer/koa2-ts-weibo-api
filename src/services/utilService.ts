@@ -4,7 +4,8 @@ class UtilService {
   static async updateAvator(userName: string, path: string) {
     const result = await Models.User.update(
       {
-        picture: path
+        picture: path,
+        updatedAt: new Date()
       },
       {
         where: {

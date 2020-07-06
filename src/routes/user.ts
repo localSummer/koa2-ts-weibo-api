@@ -17,4 +17,16 @@ router.post('/register', Validator.validator(rules.registModel), UserController.
 
 router.post('/delete', Validator.validator(rules.userModel), UserController.delete);
 
+router.patch(
+  '/updateUserInfo',
+  Validator.validator(rules.updateUserModel),
+  UserController.updateUser
+);
+
+router.patch(
+  '/resetPassword',
+  Validator.validator(rules.resetPwdModel),
+  UserController.resetPassword
+);
+
 export default router;

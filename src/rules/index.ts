@@ -8,19 +8,29 @@ const user = SchemaModel({
     .maxLength(100, '用户名最多100个字符')
 });
 
+const oldPassword = SchemaModel({
+  oldPassword: StringType()
+    .isRequired('请填写原密码')
+    .minLength(3, '密码最少3个字符')
+    .maxLength(16, '密码最多16个字符')
+});
+
 const password = SchemaModel({
   password: StringType()
     .isRequired('请填写密码')
     .minLength(3, '密码最少3个字符')
-    .maxLength(16, '密码最多16个字符'),
-  newPassword: StringType()
+    .maxLength(16, '密码最多16个字符')
 });
 
-const regist = SchemaModel({
-  password: StringType()
-    .isRequired('请填写密码')
-    .minLength(3, '密码最少3个字符')
-    .maxLength(16, '密码最多16个字符'),
+const updateUser = SchemaModel({
+  nickName: StringType().maxLength(100, '昵称最多100个字符'),
+  picture: StringType().maxLength(255, '图片链接最多255个字符'),
+  city: StringType()
+    .minLength(2, '城市最少2个字符')
+    .maxLength(255, '城市最多255个字符')
+});
+
+const newPassword = SchemaModel({
   newPassword: StringType()
     .isRequired('请输入二次确认密码')
     .minLength(3, '密码最少3个字符')
@@ -30,19 +40,19 @@ const regist = SchemaModel({
         return false;
       }
       return true;
-    }, '两次密码输入不一致'),
-  nickName: StringType().maxLength(100, '昵称最多100个字符'),
-  picture: StringType().maxLength(255, '图片链接最多255个字符'),
-  city: StringType()
-    .minLength(2, '城市最少2个字符')
-    .maxLength(255, '城市最多255个字符'),
+    }, '两次密码输入不一致')
+});
+
+const gender = SchemaModel({
   gender: NumberType()
-    .min(1, '性别职能输入1、2、3')
-    .max(3, '性别职能输入1、2、3')
+    .min(1, '性别只能输入1、2、3')
+    .max(3, '性别只能输入1、2、3')
 });
 
 export default {
   userModel: user,
-  registModel: SchemaModel.combine(user, regist),
-  loginModel: SchemaModel.combine(user, password)
+  registModel: SchemaModel.combine(user, password, newPassword, updateUser, gender),
+  loginModel: SchemaModel.combine(user, password),
+  updateUserModel: updateUser,
+  resetPwdModel: SchemaModel.combine(oldPassword, password, newPassword)
 };

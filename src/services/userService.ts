@@ -8,6 +8,13 @@ interface ICreateUserParams {
   picture?: string;
 }
 
+interface IUpdateUserParams {
+  nickName?: string;
+  picture?: string;
+  city?: string;
+  updatedAt?: Date;
+}
+
 class UserService {
   static async getUserInfo(userName: string, password?: string) {
     const where = {
@@ -51,7 +58,8 @@ class UserService {
     } else {
       const result = await Models.User.update(
         {
-          isDelete: true
+          isDelete: true,
+          updatedAt: new Date()
         },
         {
           where: {
@@ -61,6 +69,43 @@ class UserService {
       );
       return result[0] === 1;
     }
+  }
+
+  static async updateUser(userName: string, { nickName, picture, city }: IUpdateUserParams) {
+    const updateData = {
+      updatedAt: new Date()
+    } as IUpdateUserParams;
+    if (nickName) {
+      updateData.nickName = nickName;
+    }
+    if (picture) {
+      updateData.picture = picture;
+    }
+    if (city) {
+      updateData.city = city;
+    }
+    const result = await Models.User.update(updateData, {
+      where: {
+        userName
+      }
+    });
+    return result[0] === 1;
+  }
+
+  static async resetPassword(userName: string, oldPassword: string, password: string) {
+    const result = await Models.User.update(
+      {
+        password,
+        updatedAt: new Date()
+      },
+      {
+        where: {
+          userName,
+          password: oldPassword
+        }
+      }
+    );
+    return result[0] === 1;
   }
 }
 

@@ -1,6 +1,5 @@
 import Koa from 'koa';
 import UserService from '../services/userService';
-import UtilService from '../services/utilService';
 import * as Types from '../types';
 import Helper from '../utils/helper';
 
@@ -17,17 +16,7 @@ class UtilController {
       );
     }
     const path = Helper.formatPicturePath(ctx.file.path);
-    try {
-      await UtilService.updateAvator(userName, path);
-      ctx.success(path);
-    } catch (error) {
-      ctx.error(
-        Types.EErrorResponseCode.DATABASE_ERROR_CODE,
-        error.message,
-        error.stack,
-        Types.EResponseStatus.SYSTEM_ERROR
-      );
-    }
+    ctx.success(path);
   }
 }
 
