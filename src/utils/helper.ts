@@ -1,6 +1,7 @@
 import Koa from 'koa';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
+import redis from 'redis';
 import { PASSWORD_SECRET, PRIVATE_KEY, JWT_EXPIRED, UPLOAD_DIR } from '../share';
 import { IUserInfo } from '../types';
 
@@ -40,6 +41,17 @@ class Helper {
 
   static formatPicturePath(path: string) {
     return path.replace(new RegExp(`${UPLOAD_DIR}`), '');
+  }
+
+  static redisGet(redisClient: redis.RedisClient, name: string): Promise<string | null> {
+    return new Promise((resolve, reject) => {
+      redisClient.get(name, (err, value) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(value);
+      });
+    });
   }
 }
 

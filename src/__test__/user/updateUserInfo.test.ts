@@ -1,9 +1,9 @@
 import axios from '../../utils/axios';
 
-const user = {
-  userName: 'test_test',
-  password: '111111'
-};
+// const user = {
+//   userName: 'test_test',
+//   password: '111111'
+// };
 
 const token = '';
 

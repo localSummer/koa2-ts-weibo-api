@@ -2,6 +2,7 @@ import Koa from 'koa';
 import UserService from '../services/userService';
 import * as Types from '../types';
 import Helper from '../utils/helper';
+import { REDIS_PREFIX, JWT_EXPIRED } from '../share';
 
 class UserController {
   static async getUserInfo(ctx: Koa.Context) {
@@ -39,15 +40,18 @@ class UserController {
         Types.EErrorResponseMsg.USER_NOT_EXISTED
       );
     }
+    const token = Helper.createToken({
+      id: user.id,
+      userName: user.userName,
+      nickName: user.nickName,
+      picture: user.picture,
+      city: user.city,
+      gender: user.gender
+    });
+    ctx.redisClient.set(`${REDIS_PREFIX}${user.userName}`, token);
+    ctx.redisClient.expire(`${REDIS_PREFIX}${user.userName}`, JWT_EXPIRED);
     ctx.success({
-      token: Helper.createToken({
-        id: user.id,
-        userName: user.userName,
-        nickName: user.nickName,
-        picture: user.picture,
-        city: user.city,
-        gender: user.gender
-      })
+      token
     });
   }
 
@@ -68,15 +72,18 @@ class UserController {
         password: Helper.encrypt(password),
         gender
       });
+      const token = Helper.createToken({
+        id: user.id,
+        userName: user.userName,
+        nickName: user.nickName,
+        picture: user.picture,
+        city: user.city,
+        gender: user.gender
+      });
+      ctx.redisClient.set(`${REDIS_PREFIX}${user.userName}`, token);
+      ctx.redisClient.expire(`${REDIS_PREFIX}${user.userName}`, JWT_EXPIRED);
       ctx.success({
-        token: Helper.createToken({
-          id: user.id,
-          userName: user.userName,
-          nickName: user.nickName,
-          picture: user.picture,
-          city: user.city,
-          gender: user.gender
-        })
+        token
       });
     } catch (error) {
       ctx.error(Types.EErrorResponseCode.DATABASE_ERROR_CODE, error.message, error.stack);
@@ -153,6 +160,12 @@ class UserController {
         Types.EErrorResponseMsg.PASSWORD_RESET_ERROR
       );
     }
+  }
+
+  static async logout(ctx: Koa.Context) {
+    const { userName } = ctx.state.user;
+    ctx.redisClient.expire(`${REDIS_PREFIX}${userName}`, 0);
+    ctx.success();
   }
 }
 

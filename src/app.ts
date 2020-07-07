@@ -10,6 +10,7 @@ import path from 'path';
 import koaResponse from './middlewares/response';
 import logger from './middlewares/logger';
 import jwtAuth from './middlewares/jwt';
+import redisClient from './middlewares/redis';
 import { systemLogger, defaultLogger, accessLogger } from './utils/log4';
 import index from './routes';
 import Helper from './utils/helper';
@@ -64,6 +65,7 @@ app.use(async (ctx, next) => {
 app.use(logger(defaultLogger));
 app.use(koaResponse);
 app.use(jwtAuth);
+app.use(redisClient);
 
 // 路由
 app.use(index.routes());
