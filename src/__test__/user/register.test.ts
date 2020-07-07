@@ -5,10 +5,10 @@ const user = {
   userName: `test_${Date.now()}`,
   password: '111111',
   newPassword: '111111',
-  gender: 2
+  gender: 1
 };
 
-test('注册用户成功并返回token', async () => {
+test.skip('注册用户成功并返回token', async () => {
   const { data: response } = await axios.post<{
     flag: number;
     data: {
@@ -21,4 +21,5 @@ test('注册用户成功并返回token', async () => {
   const decodeToken = Helper.decodeToken(response.data.token);
   expect(decodeToken.id).toBeTruthy();
   expect(decodeToken.userName).toBe(user.userName);
+  expect(decodeToken.gender).toBe(user.gender);
 });

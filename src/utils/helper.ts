@@ -28,7 +28,7 @@ class Helper {
       .digest('hex');
   }
 
-  static getToken(data: IUserInfo) {
+  static createToken(data: IUserInfo) {
     return jwt.sign(data, PRIVATE_KEY, {
       expiresIn: JWT_EXPIRED
     });

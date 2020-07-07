@@ -1,7 +1,7 @@
 {
   "name": "koa2-ts",
   "version": "1.0.0",
-  "description": "koa2 + typescript 开发环境",
+  "description": "koa2 + typescript 开发 weibo api",
   "main": "dist/app.js",
   "scripts": {
     "compile": "tsc --project tsconfig.json -w",
@@ -25,13 +25,14 @@
   },
   "keywords": [
     "koa2",
-    "typescript"
+    "typescript",
+    "sequelize orm"
   ],
   "author": "localsummer",
-  "homepage": "https://github.com/localSummer/koa2-ts",
+  "homepage": "https://github.com/localSummer/koa2-ts-weibo-api",
   "repository": {
     "type": "git",
-    "url": "https://github.com/localSummer/koa2-ts"
+    "url": "https://github.com/localSummer/koa2-ts-weibo-api"
   },
   "license": "ISC",
   "devDependencies": {

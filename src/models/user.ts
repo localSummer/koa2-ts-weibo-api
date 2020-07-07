@@ -54,6 +54,10 @@ User.init(
       allowNull: false,
       comment: '昵称'
     },
+    /**
+     * DECIMAL 类型查询时会返回 string
+     * @see https://github.com/sequelize/sequelize/issues/7465
+     */
     gender: {
       type: DataTypes.DECIMAL,
       allowNull: false,

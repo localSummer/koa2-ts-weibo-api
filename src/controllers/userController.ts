@@ -39,9 +39,8 @@ class UserController {
         Types.EErrorResponseMsg.USER_NOT_EXISTED
       );
     }
-
     ctx.success({
-      token: Helper.getToken({
+      token: Helper.createToken({
         id: user.id,
         userName: user.userName,
         nickName: user.nickName,
@@ -70,7 +69,7 @@ class UserController {
         gender
       });
       ctx.success({
-        token: Helper.getToken({
+        token: Helper.createToken({
           id: user.id,
           userName: user.userName,
           nickName: user.nickName,
