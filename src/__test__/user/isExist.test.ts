@@ -4,7 +4,7 @@ const user = {
   userName: 'test_test'
 };
 
-test.skip('判断用户名是否存在', async () => {
+test('判断用户名是否存在', async () => {
   const { data: response } = await axios.post<{
     flag: number;
     data: {

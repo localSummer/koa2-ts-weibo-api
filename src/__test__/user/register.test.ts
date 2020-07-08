@@ -8,7 +8,7 @@ const user = {
   gender: 1
 };
 
-test.skip('注册用户成功并返回token', async () => {
+test('注册用户成功并返回token', async () => {
   const { data: response } = await axios.post<{
     flag: number;
     data: {

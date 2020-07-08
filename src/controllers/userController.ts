@@ -156,6 +156,8 @@ class UserController {
       Helper.encrypt(password)
     );
     if (result) {
+      const redisClient = await getRedisClient();
+      redisClient.expire(`${REDIS_PREFIX}${userName}`, 0);
       ctx.success();
     } else {
       ctx.error(

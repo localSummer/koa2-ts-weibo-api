@@ -5,21 +5,21 @@ const user = {
   password: '111111'
 };
 
-const token = '';
+let token = '';
 
-// beforeAll(async () => {
-//   const { data: response } = await axios.post<{
-//     flag: 0 | 1;
-//     data: {
-//       token: string;
-//     };
-//   }>('/api/user/login', user);
-//   expect(response.flag).toBe(1);
-//   expect(response.data.token).toBeTruthy();
-//   token = response.data.token;
-// });
+beforeAll(async () => {
+  const { data: response } = await axios.post<{
+    flag: 0 | 1;
+    data: {
+      token: string;
+    };
+  }>('/api/user/login', user);
+  expect(response.flag).toBe(1);
+  expect(response.data.token).toBeTruthy();
+  token = response.data.token;
+});
 
-test.skip('test delete user interface', async () => {
+test('test delete user interface', async () => {
   const { data: response } = await axios.post<{
     flag: 0 | 1;
     data: null;

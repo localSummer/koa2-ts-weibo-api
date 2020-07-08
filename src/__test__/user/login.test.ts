@@ -7,7 +7,7 @@ const user = {
   gender: 1
 };
 
-test.skip('test login interface', async () => {
+test('test login interface', async () => {
   const { data: response } = await axios.post<{
     flag: 0 | 1;
     data: {
@@ -21,6 +21,4 @@ test.skip('test login interface', async () => {
   console.log('token: ', token);
   expect(token.userName).toBe(user.userName);
   expect(token.gender).toBe(String(user.gender));
-  expect(token.nickName).toBe(user.userName);
-  expect(token.city).toBeNull();
 });
