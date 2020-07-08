@@ -41,7 +41,7 @@ koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gu
   "gulp-build": "gulp build",
   "jest": "cross-env NODE_ENV=test jest --passWithNoTests --updateSnapshot",
   "jest:watch": "cross-env NODE_ENV=test jest --coverage --watch",
-  "jest:prod": "cross-env NODE_ENV=test npm run test -- --no-cache",
+  "jest:prod": "cross-env NODE_ENV=test npm run jest -- --no-cache",
   "db-create-dev": "sequelize db:create --env=development --charset=utf8mb4 --collate=utf8mb4_general_ci",
   "db-migrate-dev": "sequelize db:migrate --env=development",
   "db-create-test": "sequelize db:create --env=test --charset=utf8mb4 --collate=utf8mb4_general_ci",

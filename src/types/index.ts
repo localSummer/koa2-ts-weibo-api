@@ -1,5 +1,4 @@
 import log4js from 'log4js';
-import redis from 'redis';
 import { TSuccess, TError } from '../middlewares/response';
 
 export interface IUserInfo {
@@ -21,7 +20,6 @@ declare module 'koa' {
     success: TSuccess;
     error: TError;
     logger: log4js.Logger;
-    redisClient: redis.RedisClient;
   }
 }
 

@@ -7,7 +7,7 @@ const loginCheck = async (ctx: Koa.Context, next: Koa.Next) => {
   const { userName } = ctx.state.user;
 
   try {
-    const token = await Helper.redisGet(ctx.redisClient, `${REDIS_PREFIX}${userName}`);
+    const token = await Helper.redisGet(`${REDIS_PREFIX}${userName}`);
     if (token) {
       return await next();
     } else {
