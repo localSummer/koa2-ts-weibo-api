@@ -1,14 +1,15 @@
 ### 技术栈
-koa2 + typescript + sequelize + sequelize-cli + mysql + jest + log4js + pm2 + gulp
+koa2 + typescript + sequelize + sequelize-cli + mysql + redis + jest + log4js + pm2 + gulp
 
 ### 功能支持
 1. typescript
 2. sequelize orm
-3. log4js 日志处理
-4. @koa/multer 文件上传
-5. schema-typed 请求参数校验
-6. ctx 自定义属性（及类型）扩展，如 `ctx.success` `ctx.error` `ctx.logger` [koa2+ts中为Context扩展自定义属性](https://blog.csdn.net/roamingcode/article/details/107084933)
-7. jest 测试
+3. redis 登录token存储
+4. log4js 日志处理
+5. @koa/multer 文件上传
+6. schema-typed 请求参数校验
+7. ctx 自定义属性（及类型）扩展，如 `ctx.success` `ctx.error` `ctx.logger` [koa2+ts中为Context扩展自定义属性](https://blog.csdn.net/roamingcode/article/details/107084933)
+8. jest 测试
 
 > 注意：所有自定义中间件在 `next` 调用时，需使用右侧格式 `await next()`，否则在 `controller` 中操作数据库会引发 `ctx.body` 数据丢失问题
 

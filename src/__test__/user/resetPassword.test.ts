@@ -3,7 +3,7 @@ import * as Types from '../../types';
 
 const user = {
   userName: 'test_1594201677377',
-  password: '111111'
+  password: '222222'
 };
 
 let token = '';

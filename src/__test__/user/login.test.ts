@@ -18,7 +18,6 @@ test('test login interface', async () => {
   expect(response.flag).toBe(1);
   expect(response.data.token).toBeTruthy();
   const token = Helper.decodeToken(response.data.token);
-  console.log('token: ', token);
   expect(token.userName).toBe(user.userName);
   expect(token.gender).toBe(String(user.gender));
 });
