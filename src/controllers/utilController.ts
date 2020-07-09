@@ -15,8 +15,15 @@ class UtilController {
         Types.EErrorResponseMsg.USER_NOT_EXISTED
       );
     }
-    const path = Helper.formatPicturePath(ctx.file.path);
-    ctx.success(path);
+    if (ctx.file) {
+      const path = Helper.formatPicturePath(ctx.file.path);
+      ctx.success(path);
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.FILE_UPLOAD_ERROR_CODE,
+        Types.EErrorResponseMsg.FILE_UPLOAD_ERROR
+      );
+    }
   }
 }
 

@@ -14,3 +14,5 @@ export const redisConfig = {
 };
 
 export const REDIS_PREFIX = 'koa:token:';
+
+export const PAGE_SIZE = 5;

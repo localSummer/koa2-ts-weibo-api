@@ -20,7 +20,15 @@ const upload = (uploadDir: string = defaultUploadDir, fileName?: string) => {
     }
   });
   return multer({
-    storage: storage
+    storage: storage,
+    fileFilter(_req, file, cb) {
+      const pattern = /\.(jpg|png|gif|webp)$/i;
+      if (pattern.test(file.originalname)) {
+        cb(null, true);
+      } else {
+        cb(new Error('文件格式不正确'), false);
+      }
+    }
   });
 };
 

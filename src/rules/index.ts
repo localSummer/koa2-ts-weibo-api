@@ -49,10 +49,21 @@ const gender = SchemaModel({
     .max(3, '性别只能输入1、2、3')
 });
 
+const blogModel = SchemaModel({
+  content: StringType()
+    .isRequired('请填写内容')
+    .minLength(1, '最少输入一个字符')
+    .maxLength(500, '最多输入500字符'),
+  image: StringType()
+    .maxLength(255, '图片链接最长不能超过255个字符')
+    .pattern(/\.(jpg|png|gif|webp)$/i, '图片只支持jpg、png、gif、webp格式文件')
+});
+
 export default {
   userModel: user,
   registModel: SchemaModel.combine(user, password, newPassword, updateUser, gender),
   loginModel: SchemaModel.combine(user, password),
   updateUserModel: updateUser,
-  resetPwdModel: SchemaModel.combine(oldPassword, password, newPassword)
+  resetPwdModel: SchemaModel.combine(oldPassword, password, newPassword),
+  blogModel
 };

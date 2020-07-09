@@ -26,8 +26,8 @@ class UserController {
       ctx.success(userInfo);
     } else {
       ctx.error(
-        Types.EErrorResponseCode.REGISTER_USER_NOT_EXIST_CODE,
-        Types.EErrorResponseMsg.REGISTER_USER_NOT_EXIST
+        Types.EErrorResponseCode.USER_NOT_EXIST_CODE,
+        Types.EErrorResponseMsg.USER_NOT_EXIST
       );
     }
   }
@@ -63,8 +63,8 @@ class UserController {
     const userInfo = await UserService.getUserInfo(userName);
     if (userInfo) {
       return ctx.error(
-        Types.EErrorResponseCode.REGISTER_USER_EXISTED_CODE,
-        Types.EErrorResponseMsg.REGISTER_USER_EXISTED
+        Types.EErrorResponseCode.USER_EXISTED_CODE,
+        Types.EErrorResponseMsg.USER_EXISTED
       );
     }
 

@@ -26,8 +26,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public city!: string;
   public isDelete!: boolean;
 
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  public createdAt!: Date;
+  public updatedAt!: Date;
 }
 
 User.init(
