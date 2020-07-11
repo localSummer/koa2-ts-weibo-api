@@ -3,6 +3,7 @@ import { DefaultState, Context } from 'koa';
 import userRouter from './user';
 import blogRouter from './blog';
 import profileRouter from './profile';
+import followRouter from './follow';
 import utilRouter from './util';
 
 const router = new Router<DefaultState, Context>();
@@ -17,6 +18,8 @@ router.use('/api/user', userRouter.routes(), userRouter.allowedMethods());
 router.use('/api/blog', blogRouter.routes(), blogRouter.allowedMethods());
 
 router.use('/api/profile', profileRouter.routes(), profileRouter.allowedMethods());
+
+router.use('/api/follow', followRouter.routes(), followRouter.allowedMethods());
 
 router.use('/api/util', utilRouter.routes(), utilRouter.allowedMethods());
 

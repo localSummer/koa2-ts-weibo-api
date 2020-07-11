@@ -15,6 +15,7 @@ import index from './routes';
 import Helper from './utils/helper';
 import * as Types from './types';
 import { UPLOAD_DIR } from './share';
+import { isPrd } from './share/env';
 
 const app = new Koa();
 
@@ -50,7 +51,7 @@ app.use(async (ctx, next) => {
       ctx.error(
         Types.EErrorResponseCode.SYSTEM_ERROR_CODE,
         error.message,
-        error.stack,
+        !isPrd ? error.stack : null,
         Types.EResponseStatus.SYSTEM_ERROR
       );
     }

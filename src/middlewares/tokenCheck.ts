@@ -3,7 +3,7 @@ import { REDIS_PREFIX } from '../share';
 import * as Types from '../types';
 import Helper from '../utils/helper';
 
-const loginCheck = async (ctx: Koa.Context, next: Koa.Next) => {
+const tokenCheck = async (ctx: Koa.Context, next: Koa.Next) => {
   const { userName } = ctx.state.user;
 
   try {
@@ -28,4 +28,4 @@ const loginCheck = async (ctx: Koa.Context, next: Koa.Next) => {
   }
 };
 
-export default loginCheck;
+export default tokenCheck;
