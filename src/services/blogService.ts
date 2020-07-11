@@ -18,7 +18,12 @@ class BlogService {
     return await Models.Blog.create(data);
   }
 
-  static async getBlogListByUser(userName: string, pageIndex = 0, pageSize = PAGE_SIZE) {
+  static async getBlogListByUser(pageIndex = 0, pageSize = PAGE_SIZE, userName = null) {
+    const userWhereOpts = {};
+    if (userName) {
+      userWhereOpts['userName'] = userName;
+    }
+
     return Models.Blog.findAndCountAll({
       attributes: ['id', 'content', 'image', 'updatedAt'],
       limit: pageSize,
@@ -27,9 +32,7 @@ class BlogService {
       include: {
         association: 'user', // 使用表之间关联关系，可以替代 model 和 as 的组合属性，否则 ts 类型报错
         attributes: ['userName', 'nickName', 'picture'],
-        where: {
-          userName
-        }
+        where: userWhereOpts
       }
     });
   }

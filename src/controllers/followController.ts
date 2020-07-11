@@ -38,6 +38,25 @@ class FollowController {
       totalCount: count
     });
   }
+
+  static async getFollowInfo(ctx: Koa.Context) {
+    const { id: userId } = ctx.state.user;
+
+    const fansResponse = await FollowService.getFans(userId);
+
+    const followersResponse = await FollowService.getFollowers(userId);
+
+    ctx.success({
+      fans: {
+        totalCount: fansResponse.count,
+        list: fansResponse.rows
+      },
+      followers: {
+        totalCount: followersResponse.count,
+        list: followersResponse.rows
+      }
+    });
+  }
 }
 
 export default FollowController;

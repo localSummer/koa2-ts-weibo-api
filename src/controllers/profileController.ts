@@ -57,7 +57,7 @@ class ProfileController {
     if (cacheBlogList) {
       blogList = JSON.parse(cacheBlogList);
     } else {
-      blogList = await BlogService.getBlogListByUser(userName, pageIndex);
+      blogList = await BlogService.getBlogListByUser(pageIndex, PAGE_SIZE, userName);
       await Helper.redisSet(redisKey, JSON.stringify(blogList), REDIS_BLOGS_EXPIRED);
     }
 

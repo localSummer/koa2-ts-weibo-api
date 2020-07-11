@@ -13,4 +13,6 @@ router.post('/getFans', tokenCheck, FollowController.getFans);
 
 router.post('/getFollowers', tokenCheck, FollowController.getFollowers);
 
+router.get('/followInfo', tokenCheck, FollowController.getFollowInfo);
+
 export default router;
