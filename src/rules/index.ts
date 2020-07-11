@@ -59,11 +59,21 @@ const blogModel = SchemaModel({
     .pattern(/\.(jpg|png|gif|webp)$/i, '图片只支持jpg、png、gif、webp格式文件')
 });
 
+const userIdModel = SchemaModel({
+  userId: NumberType().isRequired('用户ID不能为空')
+});
+
+const followerIdModel = SchemaModel({
+  followerId: NumberType().isRequired('关注的用户ID不能为空')
+});
+
 export default {
   userModel: user,
   registModel: SchemaModel.combine(user, password, newPassword, updateUser, gender),
   loginModel: SchemaModel.combine(user, password),
   updateUserModel: updateUser,
   resetPwdModel: SchemaModel.combine(oldPassword, password, newPassword),
-  blogModel
+  blogModel,
+  userIdModel,
+  followerIdModel
 };
