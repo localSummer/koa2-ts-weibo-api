@@ -51,7 +51,7 @@ app.use(async (ctx, next) => {
       ctx.error(
         Types.EErrorResponseCode.SYSTEM_ERROR_CODE,
         error.message,
-        !isPrd ? error.stack : null,
+        !isPrd ? error.stack : null, // 只允许dev和test环境打印堆栈信息
         Types.EResponseStatus.SYSTEM_ERROR
       );
     }

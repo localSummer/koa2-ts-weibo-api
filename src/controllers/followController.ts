@@ -11,7 +11,8 @@ class FollowController {
   }
 
   static async deletefollow(ctx: Koa.Context) {
-    const { userId, followerId } = ctx.request.body;
+    const { id: userId } = ctx.state.user;
+    const { followerId } = ctx.request.body;
     await FollowService.deleteFollower(userId, followerId);
     ctx.success();
   }
