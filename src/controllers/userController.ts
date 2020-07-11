@@ -3,7 +3,6 @@ import UserService from '../services/userService';
 import * as Types from '../types';
 import Helper from '../utils/helper';
 import { REDIS_PREFIX, JWT_EXPIRED } from '../share';
-import getRedisClient from '../utils/redisClient';
 
 class UserController {
   static async getUserInfo(ctx: Koa.Context) {
@@ -49,9 +48,8 @@ class UserController {
       city: user.city,
       gender: user.gender
     });
-    const redisClient = await getRedisClient();
-    redisClient.set(`${REDIS_PREFIX}${user.userName}`, token);
-    redisClient.expire(`${REDIS_PREFIX}${user.userName}`, JWT_EXPIRED);
+    const redisKey = `${REDIS_PREFIX}${user.userName}`;
+    await Helper.redisSet(redisKey, token, JWT_EXPIRED);
     ctx.success({
       token
     });
@@ -82,9 +80,8 @@ class UserController {
         city: user.city,
         gender: user.gender
       });
-      const redisClient = await getRedisClient();
-      redisClient.set(`${REDIS_PREFIX}${user.userName}`, token);
-      redisClient.expire(`${REDIS_PREFIX}${user.userName}`, JWT_EXPIRED);
+      const redisKey = `${REDIS_PREFIX}${user.userName}`;
+      await Helper.redisSet(redisKey, token, JWT_EXPIRED);
       ctx.success({
         token
       });
@@ -156,8 +153,7 @@ class UserController {
       Helper.encrypt(password)
     );
     if (result) {
-      const redisClient = await getRedisClient();
-      redisClient.expire(`${REDIS_PREFIX}${userName}`, 0);
+      Helper.redisExpire(`${REDIS_PREFIX}${userName}`, 0);
       ctx.success();
     } else {
       ctx.error(
@@ -169,8 +165,7 @@ class UserController {
 
   static async logout(ctx: Koa.Context) {
     const { userName } = ctx.state.user;
-    const redisClient = await getRedisClient();
-    redisClient.expire(`${REDIS_PREFIX}${userName}`, 0);
+    Helper.redisExpire(`${REDIS_PREFIX}${userName}`, 0);
     ctx.success();
   }
 }

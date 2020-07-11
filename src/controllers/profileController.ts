@@ -3,7 +3,9 @@ import Koa from 'koa';
 import { IUserInfo, EErrorResponseCode, EErrorResponseMsg } from '../types';
 import UserService from '../services/userService';
 import BlogService from '../services/blogService';
-import { PAGE_SIZE } from '../share';
+import { PAGE_SIZE, REDIS_BLOGS, REDIS_BLOGS_EXPIRED } from '../share';
+import Helper from '../utils/helper';
+import Blog from '../models/blog';
 
 class ProfileController {
   static async getProfileUserInfo(ctx: Koa.Context) {
@@ -44,11 +46,24 @@ class ProfileController {
 
     pageIndex = parseInt(pageIndex);
 
-    const result = await BlogService.getBlogListByUser(userName, pageIndex);
+    const redisKey = `${REDIS_BLOGS}${PAGE_SIZE}_${pageIndex}`;
+
+    let blogList: {
+      rows: Blog[];
+      count: number;
+    };
+
+    const cacheBlogList = await Helper.redisGet(redisKey);
+    if (cacheBlogList) {
+      blogList = JSON.parse(cacheBlogList);
+    } else {
+      blogList = await BlogService.getBlogListByUser(userName, pageIndex);
+      await Helper.redisSet(redisKey, JSON.stringify(blogList), REDIS_BLOGS_EXPIRED);
+    }
 
     ctx.success({
-      totalCount: result.count,
-      blogList: result.rows,
+      totalCount: blogList.count,
+      blogList: blogList.rows,
       pageSize: PAGE_SIZE,
       pageIndex
     });

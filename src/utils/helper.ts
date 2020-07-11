@@ -55,6 +55,25 @@ class Helper {
       });
     });
   }
+
+  static redisSet(name: string, value: string, expired: number) {
+    return new Promise((resolve) => {
+      getRedisClient().then((redisClient) => {
+        redisClient.set(name, value);
+        redisClient.expire(name, expired);
+        resolve(true);
+      });
+    });
+  }
+
+  static redisExpire(name: string, expired: number) {
+    return new Promise((resolve) => {
+      getRedisClient().then((redisClient) => {
+        redisClient.expire(name, expired);
+        resolve(true);
+      });
+    });
+  }
 }
 
 export default Helper;
