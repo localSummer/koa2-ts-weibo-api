@@ -25,7 +25,7 @@ class BlogService {
       offset: pageSize * pageIndex,
       order: [['id', 'desc']],
       include: {
-        association: 'user', // 使用表之间关联关系别名，可以替代 model 和 as 的组合属性，否则 ts 类型报错
+        association: 'user', // 使用表之间关联关系，可以替代 model 和 as 的组合属性，否则 ts 类型报错
         attributes: ['userName', 'nickName', 'picture'],
         where: {
           userName

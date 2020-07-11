@@ -60,7 +60,7 @@ Blog.init(
     underscored: true,
     timestamps: false,
     tableName: 'blog',
-    modelName: 'Blog'
+    modelName: 'blog'
   }
 );
 

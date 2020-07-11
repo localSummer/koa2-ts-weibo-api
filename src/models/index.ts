@@ -3,7 +3,7 @@ import Blog from './blog';
 
 Blog.belongsTo(User, {
   foreignKey: 'userId',
-  as: 'user' // 定义表之间关联关系别名
+  as: 'user' // 关联别名
 });
 
 export default {

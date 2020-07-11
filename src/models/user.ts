@@ -85,7 +85,7 @@ User.init(
     underscored: true,
     timestamps: false,
     tableName: 'user',
-    modelName: 'User'
+    modelName: 'user'
   }
 );
 
