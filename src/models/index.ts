@@ -7,6 +7,11 @@ Blog.belongsTo(User, {
   as: 'user' // 关联别名
 });
 
+export const blogBelongsToFollow = Blog.belongsTo(Follow, {
+  foreignKey: 'userId',
+  targetKey: 'followerId'
+});
+
 export const userHasManyFollowByUserId = User.hasMany(Follow, {
   foreignKey: 'userId'
 });

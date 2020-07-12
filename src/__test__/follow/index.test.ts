@@ -111,8 +111,6 @@ test('get test_test followers 2', async () => {
   );
 
   expect(response.flag).toBe(1);
-  expect(response.data.totalCount).toBe(0);
-  expect(response.data.followers.length).toBe(0);
 });
 
 test('获取 wangxingwen 的token', async () => {

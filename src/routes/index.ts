@@ -6,6 +6,7 @@ import profileRouter from './profile';
 import followRouter from './follow';
 import utilRouter from './util';
 import squareRouter from './square';
+import homeRouter from './home';
 
 const router = new Router<DefaultState, Context>();
 
@@ -25,5 +26,7 @@ router.use('/api/follow', followRouter.routes(), followRouter.allowedMethods());
 router.use('/api/util', utilRouter.routes(), utilRouter.allowedMethods());
 
 router.use('/api/square', squareRouter.routes(), squareRouter.allowedMethods());
+
+router.use('/api/home', homeRouter.routes(), homeRouter.allowedMethods());
 
 export default router;
