@@ -22,3 +22,6 @@ export const REDIS_SQUARE = 'koa:square:';
 export const REDIS_BLOGS_EXPIRED = 60;
 
 export const PAGE_SIZE = 5;
+
+// 正则表达式，匹配 '@昵称 - userName'
+export const REG_FOR_AT_WHO = /@(.+?)\s-\s(\w+?)\b/g;

@@ -1,10 +1,15 @@
 import User from './user';
 import Blog from './blog';
 import Follow from './follow';
+import AtRelation from './atRelation';
 
 Blog.belongsTo(User, {
   foreignKey: 'userId',
   as: 'user' // 关联别名
+});
+
+export const blogHasManyAtRelation = Blog.hasMany(AtRelation, {
+  foreignKey: 'blogId'
 });
 
 export const blogBelongsToFollow = Blog.belongsTo(Follow, {
@@ -23,5 +28,6 @@ export const userHasManyFollowByFollowerId = User.hasMany(Follow, {
 export default {
   User,
   Blog,
-  Follow
+  Follow,
+  AtRelation
 };

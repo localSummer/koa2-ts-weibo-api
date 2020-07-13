@@ -57,7 +57,6 @@ app.use(async (ctx, next) => {
     }
   });
   const ms = Date.now() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
   accessLogger.info(Helper.logFormat(ctx, ms));
 });
 

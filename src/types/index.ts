@@ -49,6 +49,7 @@ export enum EErrorResponseMsg {
   FILE_UPLOAD_ERROR = '文件上传失败',
   ADD_FOLLOWER_ERROR = '关注失败',
   REMOVE_FOLLOWER_ERROR = '取消关注失败',
+  HAS_MARKED_READ_ERROR = '已标记为已读',
   DEFAULT_ERROR = ''
 }
 
@@ -67,6 +68,7 @@ export enum EErrorResponseCode {
   FILE_UPLOAD_ERROR_CODE = 10011,
   ADD_FOLLOWER_ERROR_CODE = 10012,
   REMOVE_FOLLOWER_ERROR_CODE = 10012,
+  HAS_MARKED_READ_ERROR_CODE = 10012,
 
   DATABASE_ERROR_CODE = 20000
 }

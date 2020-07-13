@@ -7,6 +7,7 @@ import followRouter from './follow';
 import utilRouter from './util';
 import squareRouter from './square';
 import homeRouter from './home';
+import atMeRouter from './atMe';
 
 const router = new Router<DefaultState, Context>();
 
@@ -28,5 +29,7 @@ router.use('/api/util', utilRouter.routes(), utilRouter.allowedMethods());
 router.use('/api/square', squareRouter.routes(), squareRouter.allowedMethods());
 
 router.use('/api/home', homeRouter.routes(), homeRouter.allowedMethods());
+
+router.use('/api/atMe', atMeRouter.routes(), atMeRouter.allowedMethods());
 
 export default router;

@@ -1,4 +1,5 @@
 import Models from '../models';
+import { Op } from 'sequelize';
 
 interface ICreateUserParams {
   userName: string;
@@ -106,6 +107,17 @@ class UserService {
       }
     );
     return result[0] === 1;
+  }
+
+  static async getUserIdsByUsernames(userNames: string[]) {
+    return Models.User.findAll({
+      attributes: ['id'],
+      where: {
+        userName: {
+          [Op.in]: userNames
+        }
+      }
+    });
   }
 }
 

@@ -4,7 +4,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable(
-      'blog',
+      'at_relation',
       {
         id: {
           type: Sequelize.INTEGER.UNSIGNED,
@@ -12,24 +12,25 @@ module.exports = {
           allowNull: false,
           primaryKey: true
         },
-        content: {
-          type: Sequelize.TEXT,
-          allowNull: false,
-          comment: '微博内容'
-        },
-        image: {
-          type: Sequelize.STRING,
-          comment: '图片地址'
-        },
         user_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
-          comment: '用户ID'
+          comment: 'AT用户的ID'
+        },
+        blog_id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          comment: 'AT blog ID'
+        },
+        is_read: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false,
+          comment: '是否已读'
         },
         is_delete: {
           type: Sequelize.BOOLEAN,
           defaultValue: false,
-          comment: '标识该微博是否删除'
+          comment: '标识改at记录是否删除'
         },
         created_at: Sequelize.DATE,
         updated_at: Sequelize.DATE
@@ -41,6 +42,6 @@ module.exports = {
     );
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('blog');
+    await queryInterface.dropTable('at_relation');
   }
 };
