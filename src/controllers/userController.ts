@@ -66,28 +66,24 @@ class UserController {
       );
     }
 
-    try {
-      const user = await UserService.createUser({
-        userName,
-        password: Helper.encrypt(password),
-        gender
-      });
-      const token = Helper.createToken({
-        id: user.id,
-        userName: user.userName,
-        nickName: user.nickName,
-        picture: user.picture,
-        city: user.city,
-        gender: user.gender
-      });
-      const redisKey = `${REDIS_PREFIX}${user.userName}`;
-      await Helper.redisSet(redisKey, token, JWT_EXPIRED);
-      ctx.success({
-        token
-      });
-    } catch (error) {
-      ctx.error(Types.EErrorResponseCode.DATABASE_ERROR_CODE, error.message, error.stack);
-    }
+    const user = await UserService.createUser({
+      userName,
+      password: Helper.encrypt(password),
+      gender
+    });
+    const token = Helper.createToken({
+      id: user.id,
+      userName: user.userName,
+      nickName: user.nickName,
+      picture: user.picture,
+      city: user.city,
+      gender: user.gender
+    });
+    const redisKey = `${REDIS_PREFIX}${user.userName}`;
+    await Helper.redisSet(redisKey, token, JWT_EXPIRED);
+    ctx.success({
+      token
+    });
   }
 
   static async delete(ctx: Koa.Context) {
@@ -98,17 +94,8 @@ class UserController {
         Types.EErrorResponseMsg.UN_AUTHORIZED
       );
     }
-    try {
-      await UserService.deleteUser(userName);
-      ctx.success();
-    } catch (error) {
-      ctx.error(
-        Types.EErrorResponseCode.DATABASE_ERROR_CODE,
-        error.message,
-        error.stack,
-        Types.EResponseStatus.SYSTEM_ERROR
-      );
-    }
+    await UserService.deleteUser(userName);
+    ctx.success();
   }
 
   static async updateUser(ctx: Koa.Context) {
