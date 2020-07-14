@@ -63,6 +63,10 @@ const userIdModel = SchemaModel({
   userId: NumberType().isRequired('用户ID不能为空')
 });
 
+const blogIdModel = SchemaModel({
+  blogId: NumberType().isRequired('blog ID不能为空')
+});
+
 const followerIdModel = SchemaModel({
   followerId: NumberType().isRequired('关注的用户ID不能为空')
 });
@@ -75,5 +79,6 @@ export default {
   resetPwdModel: SchemaModel.combine(oldPassword, password, newPassword),
   blogModel,
   userIdModel,
-  followerIdModel
+  followerIdModel,
+  blogIdModel
 };

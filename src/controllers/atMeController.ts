@@ -23,15 +23,50 @@ class AtMeController {
     });
   }
 
-  static async markAsRead(ctx: Koa.Context) {
+  static async markAllAsRead(ctx: Koa.Context) {
     const { id: userId } = ctx.state.user;
     const result = await AtMeService.updateAtRelation({ isRead: true }, { userId, isRead: false });
     if (result) {
-      ctx.success(result);
+      ctx.success({
+        isAllread: result
+      });
     } else {
       ctx.error(
         Types.EErrorResponseCode.HAS_MARKED_READ_ERROR_CODE,
-        Types.EErrorResponseMsg.HAS_MARKED_READ_ERROR
+        Types.EErrorResponseMsg.HAS_MARKED_READ_ERROR,
+        {
+          isAllread: true
+        }
+      );
+    }
+  }
+
+  static async markAsReadByBlogId(ctx: Koa.Context) {
+    const { id: userId } = ctx.state.user;
+    const { blogId } = ctx.request.body;
+
+    const result = await AtMeService.updateAtRelation(
+      {
+        isRead: true
+      },
+      {
+        userId,
+        blogId,
+        isRead: false
+      }
+    );
+
+    if (result) {
+      ctx.success({
+        isRead: result
+      });
+    } else {
+      ctx.error(
+        Types.EErrorResponseCode.HAS_MARKED_READ_ERROR_CODE,
+        Types.EErrorResponseMsg.HAS_MARKED_READ_ERROR,
+        {
+          isRead: true
+        }
       );
     }
   }

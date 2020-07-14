@@ -6,6 +6,7 @@ interface IUpdateData {
 
 interface IWhereData {
   userId?: number;
+  blogId?: number;
   isRead?: boolean;
 }
 
@@ -45,7 +46,7 @@ class AtMeService {
 
   static async updateAtRelation(
     { isRead: newIsRead }: IUpdateData,
-    { userId, isRead }: IWhereData
+    { userId, isRead, blogId }: IWhereData
   ) {
     const updateData = {} as IUpdateData;
 
@@ -58,6 +59,10 @@ class AtMeService {
     if (userId) {
       whereData.userId = userId;
       whereData.isRead = isRead;
+    }
+
+    if (blogId) {
+      whereData.blogId = blogId;
     }
 
     const result = await Models.AtRelation.update(updateData, {
